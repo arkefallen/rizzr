@@ -1,3 +1,4 @@
+import dev.icerock.gradle.MRVisibility
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -7,6 +8,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -48,6 +50,14 @@ kotlin {
             implementation(libs.kotlin.test)
         }
     }
+
+    multiplatformResources {
+        resourcesPackage.set("id.ark.rizzr") // required
+        resourcesClassName.set("SharedRes") // optional, default MR
+        resourcesVisibility.set(MRVisibility.Internal) // optional, default Public
+        iosBaseLocalizationRegion.set("en") // optional, default "en"
+        iosMinimalDeploymentTarget.set("11.0") // optional, default "9.0"
+    }
 }
 
 android {
@@ -84,5 +94,9 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    commonMainApi(libs.moko.resources)
+    commonMainApi(libs.moko.resources.compose)
+
+    commonTestImplementation(libs.moko.resources.test)
 }
 
