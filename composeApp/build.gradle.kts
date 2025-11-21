@@ -1,5 +1,4 @@
 import dev.icerock.gradle.MRVisibility
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -19,23 +18,28 @@ kotlin {
         }
     }
     
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
+//    listOf(
+//        iosX64(),
+//        iosArm64(),
+//        iosSimulatorArm64()
+//    ).forEach { iosTarget ->
+//        iosTarget.binaries.framework {
+//            baseName = "ComposeApp"
+//            isStatic = true
+//        }
+//    }
     
     sourceSets {
         
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.android)
         }
+//        appleMain.dependencies {
+//            implementation(compose.preview)
+//            implementation(libs.ktor.client.darwin)
+//        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -45,18 +49,12 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.coil.svg)
+            implementation(libs.coil.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-    }
-
-    multiplatformResources {
-        resourcesPackage.set("id.ark.rizzr") // required
-        resourcesClassName.set("SharedRes") // optional, default MR
-        resourcesVisibility.set(MRVisibility.Internal) // optional, default Public
-        iosBaseLocalizationRegion.set("en") // optional, default "en"
-        iosMinimalDeploymentTarget.set("11.0") // optional, default "9.0"
     }
 }
 
@@ -98,5 +96,9 @@ dependencies {
     commonMainApi(libs.moko.resources.compose)
 
     commonTestImplementation(libs.moko.resources.test)
+}
+
+multiplatformResources {
+    resourcesPackage.set("id.ark.rizzr")
 }
 

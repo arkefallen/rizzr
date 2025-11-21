@@ -1,0 +1,42 @@
+package id.ark.rizzr.core.theme
+
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+
+val colorScheme = darkColorScheme(
+    primary = primaryColor,
+    onPrimary = onPrimaryColor,
+    primaryContainer = primaryContainerColor,
+    onPrimaryContainer = onPrimaryContainerColor,
+    secondary = secondaryColor,
+    onSecondary = onSecondaryColor,
+    secondaryContainer = secondaryContainerColor,
+    onSecondaryContainer = onSecondaryContainerColor,
+    tertiary = tertiaryColor,
+    onTertiary = onTertiaryColor,
+    tertiaryContainer = tertiaryContainerColor,
+    onTertiaryContainer = onTertiaryContainerColor,
+    error = errorColor,
+    onError = onErrorColor,
+    errorContainer = errorContainerColor,
+    onErrorContainer = onErrorContainerColor,
+    background = backgroundColor,
+    onBackground = onBackgroundColor,
+    surface = surfaceColor,
+    onSurface = onSurfaceColor,
+    surfaceVariant = surfaceVariantColor,
+    onSurfaceVariant = onSurfaceVariantColor,
+    outline = outlineColor,
+    outlineVariant = outlineVariantColor,
+    scrim = scrimColor,
+    inverseSurface = inverseSurfaceColor,
+    inverseOnSurface = inverseOnSurfaceColor,
+    inversePrimary = inversePrimaryColor,
+    surfaceDim = surfaceDimColor,
+    surfaceBright = surfaceBrightColor,
+    surfaceContainerLowest = surfaceContainerLowestColor,
+    surfaceContainerLow = surfaceContainerLowColor,
+    surfaceContainer = surfaceContainerColor,
+    surfaceContainerHigh = surfaceContainerHighColor,
+    surfaceContainerHighest = surfaceContainerHighestColor,
+)
