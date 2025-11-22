@@ -1,11 +1,8 @@
 package id.ark.rizzr
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import dev.icerock.moko.resources.compose.fontFamilyResource
@@ -125,8 +122,6 @@ fun RizzrApp() {
         colorScheme = colorScheme,
         typography = appTypography,
     ) {
-        Surface {
-            HomeScreen(splineSansMedium)
-        }
+        HomeScreen(splineSansMedium)
     }
 }
