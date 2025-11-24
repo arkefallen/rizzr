@@ -1,13 +1,35 @@
-package id.ark.rizzr
+package id.ark.rizzr.ui
 
+import id.ark.rizzr.core.utils.HomeMenuItem
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.tab.CurrentTab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 import dev.icerock.moko.resources.compose.fontFamilyResource
+import id.ark.rizzr.MR
 import id.ark.rizzr.core.theme.colorScheme
+import id.ark.rizzr.core.utils.HistoryMenuItem
+import id.ark.rizzr.core.utils.MenuNavigationItem
+import id.ark.rizzr.core.utils.SettingsMenuItem
 import org.jetbrains.compose.ui.tooling.preview.Preview
+
+val LocalBottomBarVisibility = compositionLocalOf<(Boolean) -> Unit> { {} }
+val LocalAppFont = compositionLocalOf { FontFamily() }
 
 @Composable
 @Preview
@@ -118,10 +140,33 @@ fun RizzrApp() {
         )
     )
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = appTypography,
-    ) {
-        HomeScreen(splineSansMedium)
+    var showBottomBar by remember { mutableStateOf(true) }
+
+    CompositionLocalProvider(LocalAppFont provides fontFamilyResource(MR.fonts.splinesans_regular)) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = appTypography,
+        ) {
+            TabNavigator(HomeMenuItem) {
+                CompositionLocalProvider(LocalBottomBarVisibility provides { showBottomBar = it }) {
+                    Scaffold(
+                        bottomBar = {
+                            if (showBottomBar) {
+                                NavigationBar {
+                                    MenuNavigationItem(HomeMenuItem)
+                                    MenuNavigationItem(HistoryMenuItem)
+                                    MenuNavigationItem(SettingsMenuItem)
+                                }
+                            }
+                        }
+                    ) { paddingValues ->
+                        Box(modifier = Modifier.padding(paddingValues)) {
+                            CurrentTab()
+                        }
+                    }
+                }
+            }
+        }
     }
+
 }

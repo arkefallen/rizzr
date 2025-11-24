@@ -16,6 +16,7 @@ junit = "4.13.2"
 kotlin = "2.2.0"
 ktorClientAndroid = "3.2.3"
 moko-resources = "0.25.0"
+voyager = "1.1.0-beta02"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -38,6 +39,11 @@ moko-resources-generator = { module = "dev.icerock.moko:resources-generator", ve
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref = "moko-resources" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

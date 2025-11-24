@@ -1,4 +1,3 @@
-import dev.icerock.gradle.MRVisibility
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -51,6 +50,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.coil.svg)
             implementation(libs.coil.compose)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screenModel)
+            implementation(libs.voyager.koin)
+            implementation(libs.voyager.tabNavigator)
+            implementation(libs.voyager.transitions)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
