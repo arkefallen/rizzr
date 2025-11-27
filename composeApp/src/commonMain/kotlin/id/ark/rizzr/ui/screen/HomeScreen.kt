@@ -129,7 +129,7 @@ class HomeScreen : Screen {
                                 contentColor = MaterialTheme.colorScheme.primaryContainer
                             )
                         ) {
-                            Text("LET'S GO!", fontFamily = fontFamily, fontWeight = FontWeight.Bold)
+                            Text("Let's Go !", fontFamily = fontFamily, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -148,7 +148,7 @@ class HomeScreen : Screen {
                 onClick = {
                     navigator.push(LiveWorkoutScreen())
                 },
-                text = "START WORKOUT",
+                text = "Start Workout",
                 fontFamily = fontFamily,
                 icon = {
                     Image(

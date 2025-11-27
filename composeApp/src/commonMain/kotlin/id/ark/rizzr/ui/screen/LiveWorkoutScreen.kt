@@ -24,6 +24,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +40,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.resources.compose.painterResource
 import id.ark.rizzr.MR
 import id.ark.rizzr.ui.LocalAppFont
+import id.ark.rizzr.ui.components.ConfirmationDialog
 import id.ark.rizzr.ui.components.PrimaryButton
 
 class LiveWorkoutScreen : Screen {
@@ -45,6 +50,41 @@ class LiveWorkoutScreen : Screen {
     override fun Content() {
         val fontFamily = LocalAppFont.current
         val navigator = LocalNavigator.currentOrThrow
+        var onBackPressed by remember { mutableStateOf(false) }
+        var onFinishPressed by remember { mutableStateOf(false) }
+
+        ConfirmationDialog(
+            visibility = onFinishPressed,
+            title = "Finish Workout",
+            message = "Are you sure you want to finish this workout?",
+            confirmText = "Yes, Finish",
+            cancelText = "No, Continue",
+            onConfirm = {
+                onFinishPressed = false
+                navigator.push(FinishWorkoutScreen())
+            },
+            onCancel = {
+                onFinishPressed = false
+            },
+            fontFamily = fontFamily
+        )
+
+        ConfirmationDialog(
+            visibility = onBackPressed,
+            title = "Leave Workout",
+            message = "Are you sure you want to leave this workout? Your progress will not be saved.",
+            cancelText = "Yes, Leave",
+            confirmText = "No, Stay",
+            onCancel = {
+                onBackPressed = false
+                navigator.pop()
+            },
+            onConfirm = {
+                onBackPressed = false
+            },
+            fontFamily = fontFamily
+        )
+
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(
@@ -93,7 +133,7 @@ class LiveWorkoutScreen : Screen {
                             tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier
                                 .clickable {
-                                    navigator.pop()
+                                    onBackPressed = true
                                 }
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -106,18 +146,19 @@ class LiveWorkoutScreen : Screen {
                     }
                     TextButton(
                         onClick = {
-
+                            onFinishPressed = true
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.surfaceBright
-                        )
+                        ),
                     ) {
                         Text(
-                            "FINISH",
+                            "Finish",
                             fontWeight = FontWeight.Medium,
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.secondary,
-                            fontFamily = fontFamily
+                            fontFamily = fontFamily,
+                            modifier = Modifier.padding(horizontal = 8.dp)
                         )
                     }
                 }
@@ -145,7 +186,7 @@ class LiveWorkoutScreen : Screen {
                         onClick = {
                             navigator.push(ListExerciseScreen())
                         },
-                        text = "ADD EXERCISE",
+                        text = "Add Exercise",
                         fontFamily = fontFamily,
                         icon = {
                             Icon(
