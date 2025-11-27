@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,13 +21,15 @@ fun PrimaryButton(
     text: String,
     icon: (@Composable () -> Unit)? = null,
     fontFamily: FontFamily,
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.buttonColors()
 ) {
     Button(
-        onClick = onClick, modifier = Modifier
+        onClick = onClick, modifier = modifier
             .fillMaxWidth()
             .height(56.dp),
-        shape = RoundedCornerShape(12.dp)
-
+        shape = RoundedCornerShape(12.dp),
+        colors = colors
     ) {
         if (icon != null) {
             icon()

@@ -125,7 +125,7 @@ fun WorkoutItem(
                         Image(
                             painter = painterResource(MR.images.trophy),
                             contentDescription = "Add Icon",
-                            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.primaryContainer)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
@@ -148,7 +148,7 @@ fun WorkoutItem(
                         Image(
                             painter = painterResource(MR.images.muscle),
                             contentDescription = "Add Icon",
-                            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.secondary)
+                            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.primaryContainer)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(

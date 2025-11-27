@@ -30,6 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -78,11 +80,15 @@ class HomeScreen : Screen {
                     .shadow(
                         elevation = 16.dp,
                         shape = RoundedCornerShape(16.dp),
-                        spotColor = MaterialTheme.colorScheme.primary,
-                        ambientColor = MaterialTheme.colorScheme.primary
+                        spotColor = Color(color = 0xFF6F2ED5),
+                        ambientColor = Color(color = 0xFF6425C5)
                     )
                     .clip(shape = RoundedCornerShape(size = 16.dp))
-                    .background(color = MaterialTheme.colorScheme.primaryContainer)
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(Color(0xFF6F2ED5), Color(0xFF6425C5))
+                        )
+                    )
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
@@ -91,14 +97,14 @@ class HomeScreen : Screen {
                         Icon(
                             imageVector = Icons.Rounded.Face,
                             contentDescription = "AI Coach Icon",
-                            tint = MaterialTheme.colorScheme.onTertiaryContainer
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             "AI COACH INSIGHT",
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontFamily = fontFamily
                         )
                     }
@@ -107,7 +113,7 @@ class HomeScreen : Screen {
                         "Upper body is fatigued.",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onTertiaryContainer,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontFamily = fontFamily
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -115,7 +121,7 @@ class HomeScreen : Screen {
                         "Based on your last workout, you need 24 hour more rest. Today is good for leg day !",
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
-                        color = MaterialTheme.colorScheme.onTertiaryContainer,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontFamily = fontFamily
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -125,8 +131,8 @@ class HomeScreen : Screen {
                     ) {
                         Button(
                             onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                                contentColor = MaterialTheme.colorScheme.primaryContainer
+                                containerColor = MaterialTheme.colorScheme.onSurface,
+                                contentColor = MaterialTheme.colorScheme.surface
                             )
                         ) {
                             Text("Let's Go !", fontFamily = fontFamily, fontWeight = FontWeight.Bold)
