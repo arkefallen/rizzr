@@ -1,13 +1,10 @@
 package id.ark.rizzr.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,17 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Divider
-import androidx.compose.material3.DividerDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,29 +27,34 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.model.rememberNavigatorScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import id.ark.rizzr.ui.LocalAppFont
+import id.ark.rizzr.ui.components.ExerciseGroup
+import id.ark.rizzr.ui.viewmodel.WorkoutViewModel
 
 class ListExerciseScreen : Screen {
     @Composable
     override fun Content() {
         val fontFamily = LocalAppFont.current
         val navigator = LocalNavigator.currentOrThrow
+        val workoutViewModel = navigator.rememberNavigatorScreenModel { WorkoutViewModel() }
+
         var searchQuery by remember { mutableStateOf("") }
         var selectedCategory by remember { mutableStateOf("All") }
 
@@ -160,80 +156,28 @@ class ListExerciseScreen : Screen {
                         Spacer(modifier = Modifier.width(12.dp))
                     }
                 }
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(12.dp))
             }
 
-            items(10) {
-                Column(
-                    modifier = Modifier
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        Text(
-                            "Chest",
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp,
-                            fontFamily = fontFamily,
-                            color = MaterialTheme.colorScheme.tertiary
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        HorizontalDivider(
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .weight(1f),
-                            color = DividerDefaults.color.copy(alpha = 0.3f),
-                            thickness = 1.dp
-                        )
+            items(2) {
+                ExerciseGroup(
+                    fontFamily = fontFamily,
+                    title = "Chest",
+                    exercises = listOf(
+                        "Push Up",
+                        "Bench Press",
+                        "Chest Fly",
+                        "Incline Dumbbell Press",
+                        "Cable Crossover"
+                    ),
+                    onExerciseSelected = { exerciseName ->
+                        workoutViewModel.addExercise(exerciseName)
+                        navigator.pop()
+                        Log.d("DEBUK", "Added exercise: $exerciseName")
+                        Log.d("DEBUK", "List exercise: ${workoutViewModel.currentListExercise.value.toList()}")
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .padding(bottom = 8.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.surfaceContainerLow,
-                                shape = RoundedCornerShape(12.dp)
-                            )
-                            .padding(20.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                "Push Up",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 16.sp,
-                                fontFamily = fontFamily,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            Box(
-                                modifier = Modifier
-                                    .background(
-                                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                        shape = CircleShape
-                                    )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Add,
-                                    contentDescription = "Go Icon",
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier
-                                        .padding(8.dp)
-                                        .rotate(270f)
-                                )
-                            }
-                        }
-                    }
-                }
+                )
             }
-
-
         }
     }
 }

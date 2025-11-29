@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("dev.icerock.mobile.multiplatform-resources")
+    alias(libs.plugins.devtoolsKsp)
 }
 
 kotlin {
@@ -34,6 +35,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.android)
+            implementation(libs.koin.android)
         }
 //        appleMain.dependencies {
 //            implementation(compose.preview)
@@ -53,12 +55,18 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenModel)
             implementation(libs.voyager.koin)
-            implementation(libs.voyager.tabNavigator)
-            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.tab.navigator)
+            implementation(libs.koin.core)
+            implementation(libs.koin.test)
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+    }
+
+    sourceSets.named("commonMain").configure {
+        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
     }
 }
 
@@ -98,6 +106,8 @@ dependencies {
     debugImplementation(compose.uiTooling)
     commonMainApi(libs.moko.resources)
     commonMainApi(libs.moko.resources.compose)
+
+
 
     commonTestImplementation(libs.moko.resources.test)
 }
